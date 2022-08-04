@@ -1,3 +1,7 @@
 {
-    "Built%-in Retina Display": ["Waterfox", "iTerm2", "Emacs"]
+    "Built%-in Retina Display": {
+	"Waterfox": 1, 
+	"iTerm2": 2, 
+	"Emacs": 3
+    }
 }

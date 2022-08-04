@@ -31,19 +31,19 @@ screen2spaces = hs.spaces.allSpaces()
 --print(hs.inspect(screens))
 local tgt_uuid = nil
 -- For each screen (monitor))
-for key,val in pairs(MAPPING) do
-  local this_screen = hs.screen.find(key)
+for screenname,screendict in pairs(MAPPING) do
+  local this_screen = hs.screen.find(screenname)
   print(this_screen:name() .. " with id: " .. this_screen:getUUID())
   local tgt_uuid = this_screen:getUUID()
   local this_spaces = screen2spaces[tgt_uuid]
   print("  --> space ids: " .. hs.inspect(this_spaces))
-  for j = 1, #val do
-     local this_app = hs.application.find(val[j])
+  for appname,screenidx in pairs(screendict) do
+     local this_app = hs.application.find(appname)
      local pprint_str = this_app:name() .. "(title=" .. this_app:mainWindow():title() .. ")"
-     print("  --> assign " .. pprint_str .. " to space: " .. j .. "(id=" .. this_spaces[j] .. ")")
+     print("  --> assign " .. pprint_str .. " to space: " .. screenidx .. "(id=" .. this_spaces[screenidx] .. ")")
      local this_window = this_app:mainWindow()
      -- todo: also maximise it
-     hs.spaces.moveWindowToSpace(this_window, this_spaces[j])
+     hs.spaces.moveWindowToSpace(this_window, this_spaces[screenidx])
   end
 
 end
