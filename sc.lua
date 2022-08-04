@@ -17,9 +17,12 @@ local function read_file(path)
     return content
 end
 
-local MAPPING = JSON:decode(
-   read_file("/Users/beckhamc/Dropbox/ubuntu-backup/hammerspoon/cfg.json")
-)
+if #_cli.args ~= 3 then
+   print("usage: hs ./sc.lua -- <path to json file>")
+   return
+end
+
+local MAPPING = JSON:decode(read_file(_cli.args[3]))
 print(hs.inspect(MAPPING))
 
 print("args: " .. hs.inspect(_cli.args))
