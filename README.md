@@ -11,6 +11,8 @@ You could also add this to your `~/.hammerspoon/init.lua` so that it automatical
 
 ## Configuration
 
+### Identifying monitors (screens)
+
 To get the names of all monitors (screens), you can open the `hs` interpreter and write:
 
 ```
@@ -50,3 +52,7 @@ Note the escape character in "Built%-in Retina Display" since hyphens need to be
 You can also assign the same index to more than one app, e.g. Waterfox and iTerm can both be assigned
 index 1. If you're using this in combination with a tiling window manager like Yabai then this feature
 should be helpful.
+
+### Identifying open application windows
+
+TODO
