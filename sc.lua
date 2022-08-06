@@ -17,6 +17,14 @@ local function read_file(path)
     return content
 end
 
+local function extract_max_idx(dict)
+   buf = {}
+   for key,val in pairs(dict) do
+      table.insert(buf,val)
+   end
+   return math.max(table.unpack(buf))
+end
+
 if #_cli.args ~= 3 then
    print("usage: hs ./sc.lua -- <path to json file>")
    return
@@ -26,6 +34,7 @@ local MAPPING = JSON:decode(read_file(_cli.args[3]))
 print(hs.inspect(MAPPING))
 
 print("args: " .. hs.inspect(_cli.args))
+--print(hs.spoons.scriptPath())
 
 -- a dict mapping screens (monitors) to spaces (ints)
 screen2spaces = hs.spaces.allSpaces()
@@ -40,13 +49,28 @@ for screenname,screendict in pairs(MAPPING) do
   local tgt_uuid = this_screen:getUUID()
   local this_spaces = screen2spaces[tgt_uuid]
   print("  --> space ids: " .. hs.inspect(this_spaces))
+
+  local max_screen_idx = extract_max_idx(screendict)
+  if #this_spaces < max_screen_idx then
+     -- if we have less spaces than the max idx, we need to
+     -- add some spaces to make it possible
+     local delta = max_screen_idx - #this_spaces
+     print("  --> add " .. delta .. " many extra spaces")
+     for j=1,delta do hs.spaces.addSpaceToScreen(this_screen) end
+  end
+
   for appname,screenidx in pairs(screendict) do
+
      local this_app = hs.application.find(appname)
-     local pprint_str = this_app:name() .. "(title=" .. this_app:mainWindow():title() .. ")"
-     print("  --> assign " .. pprint_str .. " to space: " .. screenidx .. "(id=" .. this_spaces[screenidx] .. ")")
-     local this_window = this_app:mainWindow()
-     -- todo: also maximise it
-     hs.spaces.moveWindowToSpace(this_window, this_spaces[screenidx])
+     if this_app ~= nil then
+	local pprint_str = this_app:name() .. "(title=" .. this_app:mainWindow():title() .. ")"
+	print("  --> assign " .. pprint_str .. " to space: " .. screenidx .. "(id=" .. this_spaces[screenidx] .. ")")
+	local this_window = this_app:mainWindow()
+	-- todo: also maximise it
+	hs.spaces.moveWindowToSpace(this_window, this_spaces[screenidx])
+     else
+	print("  --> could not find app: " .. appname)
+     end
   end
 
 end
