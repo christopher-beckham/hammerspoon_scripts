@@ -1,9 +1,15 @@
-# Installation
+# hssc
+
+A simple Hammerscript script I wrote to manage application windows on different spaces/displays.
+
+<img src="./media/example.gif" alt="animation" />
+
+## Installation
 
 `hs` needs to be available in your $PATH. To install, open the Hammerspoon console and run `hs.spaces.cliInstall()`.
 You could also add this to your `~/.hammerspoon/init.lua` so that it automatically executes when Hammerspoon starts.
 
-# Configuration
+## Configuration
 
 To get the names of all monitors (screens), you can open the `hs` interpreter and write:
 
