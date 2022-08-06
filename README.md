@@ -2,7 +2,7 @@
 
 A simple Hammerscript script I wrote to manage application windows on different spaces/displays.
 
-<img src="./media/example.gif" alt="animation" />
+<img src="./media/example.gif" width=600 alt="animation" />
 
 ## Installation
 
