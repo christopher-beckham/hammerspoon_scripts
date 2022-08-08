@@ -6,8 +6,14 @@ A simple Hammerscript script I wrote to manage application windows on different 
 
 ## Installation
 
-`hs` needs to be available in your $PATH. To install, open the Hammerspoon console and run `hs.spaces.cliInstall()`.
+`hs` needs to be available in your `PATH`. To install, open the Hammerspoon console and run `hs.ipc.cliInstall()`.
 You could also add this to your `~/.hammerspoon/init.lua` so that it automatically executes when Hammerspoon starts.
+
+This package requires the `JSON` module, which you can install with Luarocks:
+
+```
+luarocks install json-lua
+```
 
 ## Configuration
 
