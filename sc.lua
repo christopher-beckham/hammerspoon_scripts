@@ -63,11 +63,15 @@ for screenname,screendict in pairs(MAPPING) do
 
      local this_app = hs.application.find(appname)
      if this_app ~= nil then
-	local pprint_str = this_app:name() .. "(title=" .. this_app:mainWindow():title() .. ")"
-	print("  --> assign " .. pprint_str .. " to space: " .. screenidx .. "(id=" .. this_spaces[screenidx] .. ")")
-	local this_window = this_app:mainWindow()
-	-- todo: also maximise it
-	hs.spaces.moveWindowToSpace(this_window, this_spaces[screenidx])
+	if this_app:mainWindow() ~= nil then
+	   local pprint_str = this_app:name() .. "(title=" .. this_app:mainWindow():title() .. ")"
+	   print("  --> assign " .. pprint_str .. " to space: " .. screenidx .. "(id=" .. this_spaces[screenidx] .. ")")
+	   local this_window = this_app:mainWindow()
+	   -- todo: also maximise it
+	   hs.spaces.moveWindowToSpace(this_window, this_spaces[screenidx])
+	else
+	   print("  --> " .. this_app:name() .. " exists but cannot find mainWindow, maybe focus it?")
+	end
      else
 	print("  --> could not find app: " .. appname)
      end
